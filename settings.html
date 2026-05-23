@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voiago — الإعدادات</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+    .settings-tabs {
+      display: flex; gap: 0; border-bottom: 1px solid var(--border);
+      margin-bottom: 28px; overflow-x: auto;
+    }
+    .settings-tab {
+      padding: 12px 22px; font-size: .88rem; font-weight: 600;
+      cursor: pointer; color: var(--text2); border-bottom: 2px solid transparent;
+      white-space: nowrap; transition: var(--transition);
+      background: none; border-left: none; border-right: none; border-top: none;
+      font-family: 'Cairo', sans-serif;
+    }
+    .settings-tab:hover { color: var(--text1); }
+    .settings-tab.active { color: var(--primary-light); border-bottom-color: var(--primary); }
+
+    .settings-panel { display: none; }
+    .settings-panel.active { display: block; }
+
+    .profile-section {
+      display: flex; align-items: flex-start; gap: 24px;
+      padding: 24px; background: var(--card);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .profile-avatar-wrap {
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+    }
+    .profile-avatar-big {
+      width: 90px; height: 90px; border-radius: 50%;
+      background: var(--gradient2); display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; font-weight: 900; border: 3px solid var(--accent);
+      cursor: pointer; transition: var(--transition);
+    }
+    .profile-avatar-big:hover { transform: scale(1.05); }
+    .avatar-change-btn {
+      font-size: .78rem; color: var(--primary-light); cursor: pointer;
+      text-decoration: underline; background: none; border: none; font-family: 'Cairo', sans-serif;
+    }
+    .profile-form { flex: 1; min-width: 280px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .setting-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; background: var(--card);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      margin-bottom: 10px; flex-wrap: wrap; gap: 12px;
+    }
+    .setting-item-left { display: flex; align-items: center; gap: 14px; }
+    .setting-item-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .setting-item-title { font-weight: 600; font-size: .9rem; }
+    .setting-item-desc { color: var(--text2); font-size: .8rem; margin-top: 2px; }
+
+    /* Toggle Switch */
+    .toggle {
+      position: relative; width: 48px; height: 26px; cursor: pointer;
+    }
+    .toggle input { display: none; }
+    .toggle-slider {
+      position: absolute; inset: 0; background: var(--dark4);
+      border-radius: 13px; transition: .3s;
+      border: 1px solid var(--border);
+    }
+    .toggle-slider::before {
+      content: ''; position: absolute; top: 3px; right: 3px;
+      width: 18px; height: 18px; background: var(--text3);
+      border-radius: 50%; transition: .3s;
+    }
+    .toggle input:checked + .toggle-slider { background: var(--primary); border-color: var(--primary); }
+    .toggle input:checked + .toggle-slider::before { right: calc(100% - 21px); background: #fff; }
+
+    .danger-zone {
+      background: rgba(255,71,87,.06); border: 1px solid rgba(255,71,87,.25);
+      border-radius: var(--radius); padding: 24px; margin-top: 28px;
+    }
+    .danger-zone h3 { color: var(--danger); font-weight: 800; margin-bottom: 6px; }
+    .danger-zone p { color: var(--text2); font-size: .88rem; margin-bottom: 16px; }
+
+    .currency-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; }
+    .currency-chip {
+      padding: 10px; border-radius: var(--radius-sm); text-align: center;
+      border: 1px solid var(--border); cursor: pointer; transition: var(--transition);
+      font-size: .82rem; font-weight: 600;
+    }
+    .currency-chip:hover { border-color: var(--primary); background: rgba(91,61,222,.1); }
+    .currency-chip.selected { border-color: var(--accent); background: rgba(0,229,160,.1); color: var(--accent); }
+    .currency-symbol { font-size: 1.3rem; display: block; margin-bottom: 4px; }
+
+    .notif-list .setting-item { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+<aside class="dash-sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-icon">V</div>
+    <span class="sidebar-logo-text">VOIAGO</span>
+  </div>
+  <div class="sidebar-user">
+    <div class="user-avatar" data-user-initial>A</div>
+    <div class="user-info">
+      <div class="user-name" data-user-name>اسم المستخدم</div>
+      <div class="user-role" data-user-role>سائح</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">القائمة الرئيسية</div>
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">✈️</span> رحلاتي</a>
+    <a href="bookings.html" class="nav-item"><span class="nav-icon">📋</span> حجوزاتي <span class="nav-badge">2</span></a>
+    <a href="wallet.html" class="nav-item"><span class="nav-icon">💳</span> المحفظة</a>
+    <a href="points.html" class="nav-item"><span class="nav-icon">🎮</span> نقاطي</a>
+    <a href="journal.html" class="nav-item"><span class="nav-icon">📸</span> مذكراتي</a>
+    <div class="nav-section-label">الإعدادات</div>
+    <a href="settings.html" class="nav-item active"><span class="nav-icon">⚙️</span> الإعدادات</a>
+    <a href="Index.html" class="nav-item"><span class="nav-icon">🏠</span> الصفحة الرئيسية</a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="logout-btn" onclick="logout()"><span class="nav-icon">🚪</span> تسجيل الخروج</button>
+  </div>
+</aside>
+
+<div class="dash-main">
+  <header class="dash-topbar">
+    <div style="display:flex;align-items:center;gap:14px">
+      <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+      <span class="topbar-title">⚙️ الإعدادات</span>
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-badge" data-user-role>سائح</span>
+      <div class="topbar-notif">🔔<div class="notif-dot"></div></div>
+      <div class="user-avatar" style="width:36px;height:36px;font-size:.85rem" data-user-initial>A</div>
+    </div>
+  </header>
+
+  <div class="page-content fade-in">
+
+    <!-- Tabs -->
+    <div class="settings-tabs">
+      <button class="settings-tab active" onclick="switchTab('profile', this)">👤 الملف الشخصي</button>
+      <button class="settings-tab" onclick="switchTab('notifications', this)">🔔 الإشعارات</button>
+      <button class="settings-tab" onclick="switchTab('preferences', this)">🌐 التفضيلات</button>
+      <button class="settings-tab" onclick="switchTab('security', this)">🔒 الأمان</button>
+      <button class="settings-tab" onclick="switchTab('subscription', this)">💎 الاشتراك</button>
+    </div>
+
+    <!-- Profile Tab -->
+    <div class="settings-panel active" id="tab-profile">
+      <div class="profile-section">
+        <div class="profile-avatar-wrap">
+          <div class="profile-avatar-big" data-user-initial onclick="showToast('📷 تغيير الصورة قريباً!')">A</div>
+          <button class="avatar-change-btn" onclick="showToast('📷 تغيير الصورة قريباً!')">تغيير الصورة</button>
+        </div>
+        <div class="profile-form">
+          <div class="form-row" style="margin-bottom:16px">
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label">الاسم الأول</label>
+              <input type="text" class="form-control" placeholder="الاسم الأول" id="firstName">
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label">الاسم الأخير</label>
+              <input type="text" class="form-control" placeholder="الاسم الأخير">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">البريد الإلكتروني</label>
+            <input type="email" class="form-control" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">رقم الهاتف</label>
+            <input type="tel" class="form-control" placeholder="+20 100 000 0000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">جنسية جواز السفر</label>
+            <select class="form-control">
+              <option>🇪🇬 مصري</option>
+              <option>🇸🇦 سعودي</option>
+              <option>🇦🇪 إماراتي</option>
+              <option>أخرى</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">نبذة شخصية</label>
+            <textarea class="form-control" placeholder="اكتب شيئاً عن نفسك وشغفك بالسفر..." style="min-height:80px"></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="saveProfile()">حفظ التغييرات ✓</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notifications Tab -->
+    <div class="settings-panel" id="tab-notifications">
+      <div class="notif-list">
+        <div class="setting-item">
+          <div class="setting-item-left">
+            <div class="setting-item-icon" style="background:rgba(91,61,222,.2)">✈️</div>
+            <div>
+              <div class="setting-item-title">تأكيدات الحجز</div>
+              <div class="setting-item-desc">إشعارات فورية عند تأكيد أي حجز</div>
+            </div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-item-left">
+            <div class="setting-item-icon" style="background:rgba(244,162,25,.2)">🔥</div>
+            <div>
+              <div class="setting-item-title">العروض والخصومات</div>
+              <div class="setting-item-desc">إشعارات بالعروض الحصرية والخصومات</div>
+            </div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-item-left">
+            <div class="setting-item-icon" style="background:rgba(0,229,160,.2)">🎮</div>
+            <div>
+              <div class="setting-item-title">النقاط والمكافآت</div>
+              <div class="setting-item-desc">إشعار عند كسب أو استبدال النقاط</div>
+            </div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-item-left">
+            <div class="setting-item-icon" style="background:rgba(255,71,87,.2)">🚨</div>
+            <div>
+              <div class="setting-item-title">تنبيهات الطوارئ</div>
+              <div class="setting-item-desc">تنبيهات السلامة والطوارئ في وجهتك</div>
+            </div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-item-left">
+            <div class="setting-item-icon" style="background:rgba(91,61,222,.15)">📧</div>
+            <div>
+              <div class="setting-item-title">النشرة البريدية</div>
+              <div class="setting-item-desc">آخر الأخبار والوجهات الجديدة أسبوعياً</div>
+            </div>
+          </div>
+          <label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-item-left">
+            <div class="setting-item-icon" style="background:rgba(244,162,25,.15)">💱</div>
+            <div>
+              <div class="setting-item-title">تحديثات أسعار الصرف</div>
+              <div class="setting-item-desc">إشعار عند تغيّر أسعار العملات بشكل ملحوظ</div>
+            </div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preferences Tab -->
+    <div class="settings-panel" id="tab-preferences">
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header"><div class="card-title">💱 العملة المفضلة</div></div>
+        <div class="currency-grid">
+          <div class="currency-chip selected" onclick="selectCurrency(this)">
+            <span class="currency-symbol">ج.م</span>EGP
+          </div>
+          <div class="currency-chip" onclick="selectCurrency(this)">
+            <span class="currency-symbol">$</span>USD
+          </div>
+          <div class="currency-chip" onclick="selectCurrency(this)">
+            <span class="currency-symbol">€</span>EUR
+          </div>
+          <div class="currency-chip" onclick="selectCurrency(this)">
+            <span class="currency-symbol">£</span>GBP
+          </div>
+          <div class="currency-chip" onclick="selectCurrency(this)">
+            <span class="currency-symbol">ر.س</span>SAR
+          </div>
+          <div class="currency-chip" onclick="selectCurrency(this)">
+            <span class="currency-symbol">د.إ</span>AED
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header"><div class="card-title">🌐 اللغة</div></div>
+        <div class="form-group">
+          <select class="form-control" onchange="showToast('🌐 تم تغيير اللغة!')">
+            <option selected>العربية</option>
+            <option>English</option>
+            <option>Français</option>
+          </select>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">🗺️ منطقة الوقت</div></div>
+        <div class="form-group">
+          <select class="form-control">
+            <option>القاهرة (UTC+2)</option>
+            <option>الرياض (UTC+3)</option>
+            <option>دبي (UTC+4)</option>
+            <option>لندن (UTC+0)</option>
+            <option>باريس (UTC+1)</option>
+          </select>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="showToast('✅ تم حفظ التفضيلات!')">حفظ</button>
+      </div>
+    </div>
+
+    <!-- Security Tab -->
+    <div class="settings-panel" id="tab-security">
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header"><div class="card-title">🔑 تغيير كلمة المرور</div></div>
+        <div class="form-group">
+          <label class="form-label">كلمة المرور الحالية</label>
+          <input type="password" class="form-control" placeholder="••••••••">
+        </div>
+        <div class="form-group">
+          <label class="form-label">كلمة المرور الجديدة</label>
+          <input type="password" class="form-control" placeholder="••••••••">
+        </div>
+        <div class="form-group">
+          <label class="form-label">تأكيد كلمة المرور</label>
+          <input type="password" class="form-control" placeholder="••••••••">
+        </div>
+        <button class="btn btn-primary" onclick="showToast('✅ تم تغيير كلمة المرور!')">تغيير كلمة المرور</button>
+      </div>
+
+      <div class="notif-list">
+        <div class="setting-item">
+          <div class="setting-item-left">
+            <div class="setting-item-icon" style="background:rgba(0,229,160,.2)">🔐</div>
+            <div>
+              <div class="setting-item-title">التحقق بخطوتين (2FA)</div>
+              <div class="setting-item-desc">أمان إضافي عند تسجيل الدخول</div>
+            </div>
+          </div>
+          <label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-item-left">
+            <div class="setting-item-icon" style="background:rgba(91,61,222,.2)">📱</div>
+            <div>
+              <div class="setting-item-title">البصمة / Face ID</div>
+              <div class="setting-item-desc">تسجيل الدخول ببصمة الإصبع أو الوجه</div>
+            </div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+        </div>
+        <div class="setting-item">
+          <div class="setting-item-left">
+            <div class="setting-item-icon" style="background:rgba(244,162,25,.2)">📍</div>
+            <div>
+              <div class="setting-item-title">مشاركة الموقع</div>
+              <div class="setting-item-desc">السماح لـ Voiago بتحديد موقعك للخدمات</div>
+            </div>
+          </div>
+          <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+
+      <div class="danger-zone">
+        <h3>⚠️ منطقة الخطر</h3>
+        <p>حذف الحساب سيزيل جميع بياناتك نهائياً ولا يمكن التراجع عن هذا القرار.</p>
+        <button class="btn btn-danger" onclick="confirmDelete()">🗑️ حذف الحساب</button>
+      </div>
+    </div>
+
+    <!-- Subscription Tab -->
+    <div class="settings-panel" id="tab-subscription">
+      <div class="card" style="margin-bottom:20px; background: linear-gradient(135deg, rgba(91,61,222,.2), rgba(244,162,25,.15)); border-color: rgba(91,61,222,.4)">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap">
+          <div style="font-size:2.5rem">🆓</div>
+          <div>
+            <div style="font-size:1.3rem;font-weight:900">الباقة المجانية</div>
+            <div style="color:var(--text2);font-size:.88rem">اشتراكك الحالي</div>
+          </div>
+          <div style="margin-right:auto">
+            <div style="font-size:1.8rem;font-weight:900;color:var(--accent)">0 ج.م</div>
+            <div style="font-size:.78rem;color:var(--text3)">مجاناً للأبد</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
+          <div style="display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text2)">
+            <span style="color:var(--accent)">✓</span> بحث عن رحلات
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text2)">
+            <span style="color:var(--accent)">✓</span> حجز واحد شهرياً
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text3)">
+            <span style="color:var(--danger)">✗</span> عروض حصرية
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--text3)">
+            <span style="color:var(--danger)">✗</span> محفظة ذكية
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;flex-wrap:wrap">
+        <div class="card" style="border-color:rgba(244,162,25,.3)">
+          <div style="font-size:1.8rem;margin-bottom:8px">⭐</div>
+          <div style="font-size:1.1rem;font-weight:800;margin-bottom:4px">Premium</div>
+          <div style="font-size:1.8rem;font-weight:900;color:var(--secondary)">149 <span style="font-size:.9rem;color:var(--text2)">ج.م/شهر</span></div>
+          <ul style="margin:14px 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px">
+            <li style="font-size:.83rem;color:var(--text2);display:flex;gap:6px"><span style="color:var(--accent)">✓</span> حجوزات غير محدودة</li>
+            <li style="font-size:.83rem;color:var(--text2);display:flex;gap:6px"><span style="color:var(--accent)">✓</span> محفظة + كاشباك</li>
+            <li style="font-size:.83rem;color:var(--text2);display:flex;gap:6px"><span style="color:var(--accent)">✓</span> عروض حصرية</li>
+            <li style="font-size:.83rem;color:var(--text2);display:flex;gap:6px"><span style="color:var(--accent)">✓</span> ذكاء اصطناعي كامل</li>
+            <li style="font-size:.83rem;color:var(--text2);display:flex;gap:6px"><span style="color:var(--accent)">✓</span> دعم 24/7 أولوية</li>
+          </ul>
+          <button class="btn btn-primary" style="width:100%" onclick="showToast('🎉 سيتم تفعيل Premium قريباً!')">ترقية الآن</button>
+        </div>
+        <div class="card">
+          <div style="font-size:1.8rem;margin-bottom:8px">💎</div>
+          <div style="font-size:1.1rem;font-weight:800;margin-bottom:4px">Business</div>
+          <div style="font-size:1.8rem;font-weight:900;color:var(--primary-light)">499 <span style="font-size:.9rem;color:var(--text2)">ج.م/شهر</span></div>
+          <ul style="margin:14px 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px">
+            <li style="font-size:.83rem;color:var(--text2);display:flex;gap:6px"><span style="color:var(--accent)">✓</span> كل مزايا Premium</li>
+            <li style="font-size:.83rem;color:var(--text2);display:flex;gap:6px"><span style="color:var(--accent)">✓</span> لوحة تحكم الشركة</li>
+            <li style="font-size:.83rem;color:var(--text2);display:flex;gap:6px"><span style="color:var(--accent)">✓</span> تقارير تفصيلية</li>
+            <li style="font-size:.83rem;color:var(--text2);display:flex;gap:6px"><span style="color:var(--accent)">✓</span> API Integration</li>
+            <li style="font-size:.83rem;color:var(--text2);display:flex;gap:6px"><span style="color:var(--accent)">✓</span> مدير حساب مخصص</li>
+          </ul>
+          <button class="btn btn-outline" style="width:100%" onclick="showToast('📞 سيتم التواصل للأعمال!')">تواصل للأعمال</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="Js/dashboard.js"></script>
+<script>
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.settings-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + tabId).classList.add('active');
+}
+
+function selectCurrency(el) {
+  document.querySelectorAll('.currency-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  showToast('💱 تم تحديد العملة!');
+}
+
+function saveProfile() {
+  showToast('✅ تم حفظ الملف الشخصي بنجاح!');
+}
+
+function confirmDelete() {
+  if (confirm('هل أنت متأكد من حذف حسابك نهائياً؟ لا يمكن التراجع!')) {
+    localStorage.removeItem('voiago_user');
+    window.location.href = 'Index.html';
+  }
+}
+</script>
+</body>
+</html>

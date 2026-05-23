@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voiago — رحلاتي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+    .trips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 20px; }
+
+    .trip-status-bar {
+      display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;
+    }
+    .trip-filter {
+      padding: 7px 18px; border-radius: 50px; cursor: pointer;
+      font-size: .85rem; font-weight: 600; font-family: 'Cairo', sans-serif;
+      border: 1px solid var(--border); background: none; color: var(--text2);
+      transition: var(--transition);
+    }
+    .trip-filter.active, .trip-filter:hover {
+      background: var(--gradient); color: #fff; border-color: transparent;
+    }
+
+    .trip-card-img {
+      position: relative; height: 170px; overflow: hidden;
+    }
+    .trip-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+    .trip-card:hover .trip-card-img img { transform: scale(1.06); }
+    .trip-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(11,12,30,.8), transparent);
+    }
+    .trip-card-badge {
+      position: absolute; top: 12px; right: 12px;
+    }
+
+    .trip-card-body { padding: 18px; }
+    .trip-card-title { font-size: 1.05rem; font-weight: 800; margin-bottom: 8px; }
+    .trip-card-meta {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      color: var(--text2); font-size: .8rem; margin-bottom: 14px;
+    }
+    .trip-meta-item { display: flex; align-items: center; gap: 4px; }
+    .trip-card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--border); padding-top: 14px;
+    }
+    .trip-price { font-weight: 800; color: var(--secondary); font-size: 1rem; }
+
+    .upcoming-strip {
+      background: linear-gradient(135deg, rgba(91,61,222,.25), rgba(244,162,25,.15));
+      border: 1px solid rgba(91,61,222,.3);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex; align-items: center; gap: 20px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .upcoming-icon { font-size: 2.5rem; }
+    .upcoming-text h3 { font-weight: 800; font-size: 1.1rem; margin-bottom: 4px; }
+    .upcoming-text p { color: var(--text2); font-size: .88rem; }
+    .countdown-boxes { display: flex; gap: 10px; margin-right: auto; }
+    .count-box {
+      background: var(--dark3); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 56px;
+    }
+    .count-box .count-num { font-size: 1.4rem; font-weight: 900; color: var(--secondary); line-height: 1; }
+    .count-box .count-lbl { font-size: .68rem; color: var(--text3); margin-top: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="dash-sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-icon">V</div>
+    <span class="sidebar-logo-text">VOIAGO</span>
+  </div>
+  <div class="sidebar-user">
+    <div class="user-avatar" data-user-initial>A</div>
+    <div class="user-info">
+      <div class="user-name" data-user-name>اسم المستخدم</div>
+      <div class="user-role" data-user-role>سائح</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">القائمة الرئيسية</div>
+    <a href="dashboard.html" class="nav-item active">
+      <span class="nav-icon">✈️</span> رحلاتي
+    </a>
+    <a href="bookings.html" class="nav-item">
+      <span class="nav-icon">📋</span> حجوزاتي
+      <span class="nav-badge">2</span>
+    </a>
+    <a href="wallet.html" class="nav-item">
+      <span class="nav-icon">💳</span> المحفظة
+    </a>
+    <a href="points.html" class="nav-item">
+      <span class="nav-icon">🎮</span> نقاطي
+    </a>
+    <a href="journal.html" class="nav-item">
+      <span class="nav-icon">📸</span> مذكراتي
+    </a>
+    <div class="nav-section-label">الإعدادات</div>
+    <a href="settings.html" class="nav-item">
+      <span class="nav-icon">⚙️</span> الإعدادات
+    </a>
+    <a href="Index.html" class="nav-item">
+      <span class="nav-icon">🏠</span> الصفحة الرئيسية
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="logout-btn" onclick="logout()">
+      <span class="nav-icon">🚪</span> تسجيل الخروج
+    </button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="dash-main">
+  <header class="dash-topbar">
+    <div style="display:flex;align-items:center;gap:14px">
+      <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+      <span class="topbar-title">✈️ رحلاتي</span>
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-badge" data-user-role>سائح</span>
+      <div class="topbar-notif">🔔<div class="notif-dot"></div></div>
+      <div class="user-avatar" style="width:36px;height:36px;font-size:.85rem" data-user-initial>A</div>
+    </div>
+  </header>
+
+  <div class="page-content fade-in">
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-value" style="color:var(--accent)" data-count="3">0</div>
+        <div class="stat-label">رحلات مكتملة</div>
+        <div class="stat-trend">↑ رحلة جديدة هذا الشهر</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🚀</div>
+        <div class="stat-value" style="color:var(--primary-light)" data-count="2">0</div>
+        <div class="stat-label">رحلات قادمة</div>
+        <div class="stat-trend">أقرب رحلة بعد 14 يوم</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🌍</div>
+        <div class="stat-value" style="color:var(--secondary)" data-count="5">0</div>
+        <div class="stat-label">دول زرتها</div>
+        <div class="stat-trend">↑ دولة جديدة هذا العام</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-value" style="color:var(--warning)" data-count="12">0</div>
+        <div class="stat-label">مراجعات قدّمتها</div>
+      </div>
+    </div>
+
+    <!-- Upcoming Trip Banner -->
+    <div class="upcoming-strip">
+      <div class="upcoming-icon">🛫</div>
+      <div class="upcoming-text">
+        <h3>رحلتك القادمة: القاهرة → دبي</h3>
+        <p>15 يونيو 2026 • طيران الإمارات • رقم الحجز: EK-2026-4815</p>
+      </div>
+      <div class="countdown-boxes">
+        <div class="count-box"><div class="count-num" id="days">14</div><div class="count-lbl">يوم</div></div>
+        <div class="count-box"><div class="count-num" id="hrs">08</div><div class="count-lbl">ساعة</div></div>
+        <div class="count-box"><div class="count-num" id="mins">30</div><div class="count-lbl">دقيقة</div></div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="trip-status-bar">
+      <button class="trip-filter active" onclick="filterTrips('all', this)">الكل</button>
+      <button class="trip-filter" onclick="filterTrips('upcoming', this)">القادمة</button>
+      <button class="trip-filter" onclick="filterTrips('completed', this)">المكتملة</button>
+      <button class="trip-filter" onclick="filterTrips('cancelled', this)">الملغاة</button>
+    </div>
+
+    <!-- Trips Grid -->
+    <div class="trips-grid" id="tripsGrid"></div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="Js/dashboard.js"></script>
+<script>
+const TRIPS = [
+  { id: 1, dest: 'دبي، الإمارات', img: 'https://images.unsplash.com/photo-1724887153804-4e60725f35ba?w=600&q=80', date: '15 يونيو 2026', type: 'طيران + فندق', price: '8,900', status: 'upcoming', flag: '🇦🇪', nights: 6 },
+  { id: 2, dest: 'القاهرة → إسطنبول', img: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=600&q=80', date: '28 يوليو 2026', type: 'باقة شاملة', price: '5,500', status: 'upcoming', flag: '🇹🇷', nights: 7 },
+  { id: 3, dest: 'شرم الشيخ', img: 'https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=600&q=80', date: '10 مارس 2026', type: 'فندق + غوص', price: '3,200', status: 'completed', flag: '🇪🇬', nights: 5 },
+  { id: 4, dest: 'باريس، فرنسا', img: 'https://images.unsplash.com/photo-1646513631009-4efa641e144e?w=600&q=80', date: '5 يناير 2026', type: 'جولة أوروبية', price: '18,500', status: 'completed', flag: '🇫🇷', nights: 10 },
+  { id: 5, dest: 'مكة المكرمة', img: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=600&q=80', date: '12 أبريل 2026', type: 'عمرة', price: '6,200', status: 'completed', flag: '🇸🇦', nights: 8 },
+  { id: 6, dest: 'طوكيو، اليابان', img: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&q=80', date: '20 فبراير 2026', type: 'طيران', price: '18,000', status: 'cancelled', flag: '🇯🇵', nights: 0 },
+];
+
+const STATUS_MAP = {
+  upcoming: { label: 'قادمة', cls: 'badge-info' },
+  completed: { label: 'مكتملة', cls: 'badge-success' },
+  cancelled: { label: 'ملغاة', cls: 'badge-danger' },
+};
+
+let currentFilter = 'all';
+
+function filterTrips(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.trip-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTrips();
+}
+
+function renderTrips() {
+  const list = currentFilter === 'all' ? TRIPS : TRIPS.filter(t => t.status === currentFilter);
+  const grid = document.getElementById('tripsGrid');
+  if (!list.length) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+      <div class="empty-icon">🌐</div><h3>لا توجد رحلات</h3><p>لم تُسجَّل رحلات بهذا الفلتر بعد.</p>
+    </div>`;
+    return;
+  }
+  grid.innerHTML = list.map(t => {
+    const s = STATUS_MAP[t.status];
+    return `
+    <div class="trip-card">
+      <div class="trip-card-img">
+        <img src="${t.img}" alt="${t.dest}" loading="lazy">
+        <div class="trip-card-overlay"></div>
+        <div class="trip-card-badge"><span class="badge ${s.cls}">${s.label}</span></div>
+      </div>
+      <div class="trip-card-body">
+        <div class="trip-card-title">${t.flag} ${t.dest}</div>
+        <div class="trip-card-meta">
+          <span class="trip-meta-item">📅 ${t.date}</span>
+          <span class="trip-meta-item">🌙 ${t.nights} ليالٍ</span>
+          <span class="trip-meta-item">🎒 ${t.type}</span>
+        </div>
+        <div class="trip-card-footer">
+          <div class="trip-price">${t.price} ج.م</div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ تفاصيل الرحلة قريباً!')">التفاصيل</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+renderTrips();
+
+// Countdown
+function updateCountdown() {
+  const target = new Date('2026-06-15T08:00:00');
+  const now = new Date();
+  const diff = target - now;
+  if (diff <= 0) return;
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  document.getElementById('days').textContent = String(d).padStart(2,'0');
+  document.getElementById('hrs').textContent = String(h).padStart(2,'0');
+  document.getElementById('mins').textContent = String(m).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 60000);
+</script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voiago - Create Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2563EB;
+            --primary-hover: #1D4ED8;
+            --bg-color: #F3F4F6;
+            --card-bg: #FFFFFF;
+            --text-main: #111827;
+            --text-muted: #6B7280;
+            --border-color: #E5E7EB;
+            --input-bg: #F9FAFB;
+            --focus-ring: rgba(37, 99, 235, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            color: var(--text-main);
+        }
+
+        .auth-container {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 480px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            padding: 2.5rem;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .brand-header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .brand-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .auth-tabs {
+            display: flex;
+            background: var(--input-bg);
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .auth-tab.active {
+            background: var(--card-bg);
+            color: var(--primary-blue);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .role-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-card {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--card-bg);
+        }
+
+        .role-card:hover {
+            border-color: #cbd5e1;
+        }
+
+        .role-card.active {
+            border-color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .role-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .role-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-control::placeholder {
+            color: #9CA3AF;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px var(--focus-ring);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+            padding-right: 2.5rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: 9999px; /* Pill shape */
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 8px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-submit:hover svg {
+            transform: translateX(4px);
+        }
+
+        .signin-mode .signup-only {
+            display: none !important;
+        }
+
+        .signin-mode .pass-row {
+            grid-template-columns: 1fr;
+        }
+
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 1.5rem;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="brand-header">
+            <h1>Voiago</h1>
+            <p>Your smart travel companion</p>
+        </div>
+
+        <div class="auth-tabs">
+            <div class="auth-tab" onclick="toggleTab('signin')">Sign In</div>
+            <div class="auth-tab active" onclick="toggleTab('signup')">Create Account</div>
+        </div>
+
+        <form id="signupForm" onsubmit="handleAuth(event)">
+            <!-- Role Selection -->
+            <div class="role-selector signup-only">
+                <div class="role-card active" onclick="selectRole(this, 'tourist')">
+                    <div class="role-icon">🧳</div>
+                    <div class="role-title">Tourist</div>
+                </div>
+                <div class="role-card" onclick="selectRole(this, 'admin')">
+                    <div class="role-icon">🛡️</div>
+                    <div class="role-title">Admin</div>
+                </div>
+            </div>
+
+            <div class="form-group signup-only">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" placeholder="Enter your full name" required id="fullNameInput">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" placeholder="your@email.com" required>
+            </div>
+
+            <div class="form-row pass-row">
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <div class="form-group signup-only">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" placeholder="••••••••" required id="confirmPassInput">
+                </div>
+            </div>
+
+            <div class="form-row signup-only">
+                <div class="form-group">
+                    <label class="form-label">Preferred Currency</label>
+                    <select class="form-control" required id="currencyInput">
+                        <option value="" disabled selected>Select currency</option>
+                        <option value="USD">USD ($)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="EGP">EGP (ج.م)</option>
+                        <option value="SAR">SAR (ر.س)</option>
+                        <option value="AED">AED (د.إ)</option>
+                        <option value="GBP">GBP (£)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Preferred Language</label>
+                    <select class="form-control" required id="languageInput">
+                        <option value="" disabled selected>Select language</option>
+                        <option value="en">English</option>
+                        <option value="ar">Arabic (العربية)</option>
+                        <option value="fr">French (Français)</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                <span id="btnText">Create Account</span>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        function selectRole(element, role) {
+            // Remove active class from all role cards
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            // Add active class to clicked card
+            element.classList.add('active');
+            console.log("Selected role:", role);
+        }
+
+        function toggleTab(tab) {
+            const tabs = document.querySelectorAll('.auth-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            
+            if(tab === 'signup') {
+                document.getElementById('signupForm').classList.remove('signin-mode');
+                document.getElementById('btnText').textContent = 'Create Account';
+                document.getElementById('fullNameInput').required = true;
+                document.getElementById('confirmPassInput').required = true;
+                document.getElementById('currencyInput').required = true;
+                document.getElementById('languageInput').required = true;
+                tabs[1].classList.add('active');
+            } else {
+                document.getElementById('signupForm').classList.add('signin-mode');
+                document.getElementById('btnText').textContent = 'Sign In';
+                document.getElementById('fullNameInput').required = false;
+                document.getElementById('confirmPassInput').required = false;
+                document.getElementById('currencyInput').required = false;
+                document.getElementById('languageInput').required = false;
+                tabs[0].classList.add('active');
+            }
+        }
+
+        function handleAuth(event) {
+            event.preventDefault();
+            const isSignup = document.getElementById('btnText').textContent === 'Create Account';
+            let name = 'User';
+            let role = 'tourist';
+            
+            if (isSignup) {
+                name = document.getElementById('fullNameInput').value || 'New User';
+                const activeRoleCard = document.querySelector('.role-card.active');
+                if (activeRoleCard) {
+                    role = activeRoleCard.querySelector('.role-title').textContent.toLowerCase().trim() === 'admin' ? 'admin' : 'tourist';
+                }
+            } else {
+                name = 'Welcome Back User';
+                role = 'tourist';
+            }
+            
+            // Save user to localStorage
+            localStorage.setItem('voiago_user', JSON.stringify({ name: name, role: role }));
+            sessionStorage.setItem('voiago_open_dashboard', 'true');
+            
+            // Redirect to external dashboard
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

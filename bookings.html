@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voiago — حجوزاتي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+    .booking-tabs { display:flex; gap:12px; margin-bottom:24px; flex-wrap:wrap; }
+    .booking-tab {
+      padding:8px 20px; border-radius:50px; cursor:pointer; font-size:.85rem;
+      font-weight:600; font-family:'Cairo',sans-serif; border:1px solid var(--border);
+      background:none; color:var(--text2); transition:var(--transition);
+    }
+    .booking-tab.active,.booking-tab:hover { background:var(--gradient); color:#fff; border-color:transparent; }
+
+    .booking-card {
+      background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+      padding:22px; margin-bottom:16px; transition:var(--transition);
+      display:flex; gap:18px; align-items:stretch; flex-wrap:wrap;
+    }
+    .booking-card:hover { border-color:rgba(91,61,222,.4); }
+
+    .booking-icon-col {
+      width:64px; height:64px; border-radius:14px; display:flex;
+      align-items:center; justify-content:center; font-size:1.8rem; flex-shrink:0;
+    }
+
+    .booking-body { flex:1; min-width:200px; }
+    .booking-title { font-weight:800; font-size:1rem; margin-bottom:6px; }
+    .booking-meta { display:flex; gap:12px; flex-wrap:wrap; color:var(--text2); font-size:.82rem; margin-bottom:10px; }
+    .booking-meta-item { display:flex; align-items:center; gap:4px; }
+
+    .booking-actions { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .booking-ref { font-size:.75rem; color:var(--text3); margin-top:6px; }
+
+    .booking-price-col { display:flex; flex-direction:column; align-items:flex-end; justify-content:space-between; }
+    .booking-price { font-size:1.3rem; font-weight:900; color:var(--secondary); }
+    .booking-price-lbl { font-size:.75rem; color:var(--text3); }
+
+    .search-bar {
+      display:flex; gap:12px; margin-bottom:24px; flex-wrap:wrap;
+    }
+    .search-input {
+      flex:1; min-width:220px;
+      background:var(--dark3); border:1px solid var(--border); border-radius:10px;
+      color:var(--text1); padding:11px 16px; font-size:.9rem; outline:none;
+      font-family:'Cairo',sans-serif; transition:var(--transition);
+    }
+    .search-input:focus { border-color:var(--primary); }
+    .search-input::placeholder { color:var(--text3); }
+  </style>
+</head>
+<body>
+
+<aside class="dash-sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-icon">V</div>
+    <span class="sidebar-logo-text">VOIAGO</span>
+  </div>
+  <div class="sidebar-user">
+    <div class="user-avatar" data-user-initial>A</div>
+    <div class="user-info">
+      <div class="user-name" data-user-name>اسم المستخدم</div>
+      <div class="user-role" data-user-role>سائح</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">القائمة الرئيسية</div>
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">✈️</span> رحلاتي</a>
+    <a href="bookings.html" class="nav-item active">
+      <span class="nav-icon">📋</span> حجوزاتي <span class="nav-badge">2</span>
+    </a>
+    <a href="wallet.html" class="nav-item"><span class="nav-icon">💳</span> المحفظة</a>
+    <a href="points.html" class="nav-item"><span class="nav-icon">🎮</span> نقاطي</a>
+    <a href="journal.html" class="nav-item"><span class="nav-icon">📸</span> مذكراتي</a>
+    <div class="nav-section-label">الإعدادات</div>
+    <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> الإعدادات</a>
+    <a href="Index.html" class="nav-item"><span class="nav-icon">🏠</span> الصفحة الرئيسية</a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="logout-btn" onclick="logout()"><span class="nav-icon">🚪</span> تسجيل الخروج</button>
+  </div>
+</aside>
+
+<div class="dash-main">
+  <header class="dash-topbar">
+    <div style="display:flex;align-items:center;gap:14px">
+      <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+      <span class="topbar-title">📋 حجوزاتي</span>
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-badge" data-user-role>سائح</span>
+      <div class="topbar-notif">🔔<div class="notif-dot"></div></div>
+      <div class="user-avatar" style="width:36px;height:36px;font-size:.85rem" data-user-initial>A</div>
+    </div>
+  </header>
+
+  <div class="page-content fade-in">
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">📋</div>
+        <div class="stat-value" style="color:var(--primary-light)" data-count="5">0</div>
+        <div class="stat-label">إجمالي الحجوزات</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🚀</div>
+        <div class="stat-value" style="color:var(--accent)" data-count="2">0</div>
+        <div class="stat-label">حجوزات مؤكدة</div>
+        <div class="stat-trend">↑ قادمة</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏳</div>
+        <div class="stat-value" style="color:var(--warning)" data-count="1">0</div>
+        <div class="stat-label">قيد المعالجة</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-value" style="color:var(--secondary)" data-count="22400">0</div>
+        <div class="stat-label">إجمالي المدفوع (ج.م)</div>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <input class="search-input" type="text" placeholder="🔍 ابحث في حجوزاتك..." oninput="searchBookings(this.value)">
+      <button class="btn btn-primary" onclick="showToast('📋 تصدير قريباً!')">تصدير PDF</button>
+    </div>
+
+    <div class="booking-tabs">
+      <button class="booking-tab active" onclick="filterBookings('all',this)">الكل</button>
+      <button class="booking-tab" onclick="filterBookings('flight',this)">✈️ طيران</button>
+      <button class="booking-tab" onclick="filterBookings('hotel',this)">🏨 فنادق</button>
+      <button class="booking-tab" onclick="filterBookings('package',this)">🎁 باقات</button>
+      <button class="booking-tab" onclick="filterBookings('umrah',this)">🕌 عمرة</button>
+    </div>
+
+    <div id="bookingsList"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="Js/dashboard.js"></script>
+<script>
+const BOOKINGS = [
+  {
+    id:'EK-2026-4815', type:'flight', icon:'✈️', color:'rgba(91,61,222,.2)',
+    title:'القاهرة → دبي', date:'15 يونيو 2026', seats:'2 مقاعد',
+    airline:'طيران الإمارات', class:'اقتصادي', price:'4,500',
+    status:'confirmed', statusCls:'badge-success', statusLabel:'مؤكد'
+  },
+  {
+    id:'HTL-202603', type:'hotel', icon:'🏨', color:'rgba(244,162,25,.2)',
+    title:'فندق النيل الكبير - القاهرة', date:'20–25 يونيو 2026', seats:'غرفة مزدوجة',
+    airline:'5 نجوم', class:'إفطار مشمول', price:'2,800',
+    status:'pending', statusCls:'badge-warning', statusLabel:'قيد المعالجة'
+  },
+  {
+    id:'PKG-2026-07', type:'package', icon:'🎁', color:'rgba(0,229,160,.2)',
+    title:'باقة إسطنبول الشاملة', date:'28 يوليو 2026', seats:'شخص واحد',
+    airline:'7 ليالٍ', class:'طيران + فندق + جولات', price:'8,900',
+    status:'confirmed', statusCls:'badge-success', statusLabel:'مؤكد'
+  },
+  {
+    id:'UMR-2026-12', type:'umrah', icon:'🕌', color:'rgba(91,61,222,.15)',
+    title:'عمرة رمضان 2026', date:'10 أبريل 2026', seats:'شخصان',
+    airline:'مكة المكرمة', class:'إقامة قرب الحرم', price:'6,200',
+    status:'completed', statusCls:'badge-info', statusLabel:'مكتملة'
+  },
+  {
+    id:'FLT-2025-99', type:'flight', icon:'✈️', color:'rgba(255,71,87,.15)',
+    title:'القاهرة → طوكيو', date:'20 فبراير 2026', seats:'شخص واحد',
+    airline:'طيران قطر', class:'اقتصادي', price:'18,000',
+    status:'cancelled', statusCls:'badge-danger', statusLabel:'ملغي'
+  },
+];
+
+let activeType = 'all';
+let searchQuery = '';
+
+function filterBookings(type, btn) {
+  activeType = type;
+  document.querySelectorAll('.booking-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderBookings();
+}
+
+function searchBookings(q) {
+  searchQuery = q.toLowerCase();
+  renderBookings();
+}
+
+function renderBookings() {
+  let list = activeType === 'all' ? BOOKINGS : BOOKINGS.filter(b => b.type === activeType);
+  if (searchQuery) list = list.filter(b => b.title.toLowerCase().includes(searchQuery) || b.id.toLowerCase().includes(searchQuery));
+  
+  const el = document.getElementById('bookingsList');
+  if (!list.length) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><h3>لا توجد حجوزات</h3><p>لم يتم العثور على حجوزات بهذا الفلتر.</p></div>`;
+    return;
+  }
+  el.innerHTML = list.map(b => `
+    <div class="booking-card">
+      <div class="booking-icon-col" style="background:${b.color}">${b.icon}</div>
+      <div class="booking-body">
+        <div class="booking-title">${b.title}</div>
+        <div class="booking-meta">
+          <span class="booking-meta-item">📅 ${b.date}</span>
+          <span class="booking-meta-item">👥 ${b.seats}</span>
+          <span class="booking-meta-item">🏢 ${b.airline}</span>
+          <span class="booking-meta-item">🎫 ${b.class}</span>
+        </div>
+        <div class="booking-actions">
+          <span class="badge ${b.statusCls}">${b.statusLabel}</span>
+          <button class="btn btn-outline btn-sm" onclick="showToast('📄 تذكرتك رقم ${b.id}')">عرض التذكرة</button>
+          ${b.status !== 'cancelled' && b.status !== 'completed' ? `<button class="btn btn-danger btn-sm" onclick="showToast('تم إلغاء الحجز', 'error')">إلغاء</button>` : ''}
+        </div>
+        <div class="booking-ref">رقم الحجز: ${b.id}</div>
+      </div>
+      <div class="booking-price-col">
+        <div>
+          <div class="booking-price">${b.price}</div>
+          <div class="booking-price-lbl">ج.م</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="showToast('🧾 الفاتورة قريباً!')">فاتورة</button>
+      </div>
+    </div>`).join('');
+}
+
+renderBookings();
+</script>
+</body>
+</html>

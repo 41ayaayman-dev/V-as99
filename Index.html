@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Voiago — منصة السفر الذكية. احجز طيران، فنادق، تنقل، حج وعمرة في مكان واحد.">
+    <title>Voiago — منصة السفر الذكية</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&family=Poppins:wght@300;400;600;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- ... أكواد تانية هنا ... -->
+
+<style>
+  /* ═══ HERO BACKGROUND ═══ */
+  .hero {
+  position: relative !important;
+  width: 100% !important;
+  min-height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  padding: 120px 60px 60px !important;
+  background: none !important;
+  overflow: hidden !important;
+}
+  .hero::after {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: url('https://images.unsplash.com/photo-1728817935547-04f9ef9007ba') no-repeat center center / cover !important;
+    z-index: 0 !important;
+  }
+  .hero::before {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(
+      to bottom,
+      rgba(8, 15, 30, 0.45) 0%,
+      rgba(8, 15, 30, 0.55) 40%,
+      rgba(8, 15, 30, 0.80) 100%
+    ) !important;
+    z-index: 1 !important;
+  }
+  .hero > * {
+    position: relative !important;
+    z-index: 2 !important;
+  }
+  .hero-title, .hero-badge {
+  background: rgba(15, 20, 40, 0.75) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  backdrop-filter: none !important;
+  margin-top: 100px !important;
+}
+.hero-sub {
+  background: transparent !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 1.1rem !important;
+  color: rgba(255,255,255,0.75) !important;
+  line-height: 1.7 !important;
+  max-width: 600px !important;
+  text-align: left !important;
+} 
+.hero-badge {
+  background: rgba(30, 35, 50, 0.82) !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+  border-radius: 50px !important;
+  padding: 6px 14px !important;
+  backdrop-filter: blur(8px) !important;
+  font-size: 0.75rem !important;
+  gap: 6px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  position: absolute !important;
+  top: 140px !important;
+  left: 40px !important;
+  margin-top: 0!important;
+}
+  /* ═══ NAVBAR ═══ */
+  #navbar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    background: transparent !important;
+    border-bottom: none !important;
+    transition: all 0.3s ease !important;
+  }
+  #navbar.scrolled {
+    background: #ffffff !important;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08) !important;
+    border-bottom: 1px solid #e5e7eb !important;
+  }
+
+  /* ═══ NAV LINKS PILL ═══ */
+ #navbar .nav-links {
+  background: rgba(255,255,255,0.15) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255,255,255,0.25) !important;
+  border-radius: 50px !important;
+  padding: 8px 24px !important;
+  display: flex !important;
+  gap: 8px !important;
+  list-style: none !important;
+  margin-right: 80px !important;
+}
+  #navbar.scrolled .nav-links {
+    background: rgba(0,0,0,0.06) !important;
+    border: 1px solid rgba(0,0,0,0.10) !important;
+    backdrop-filter: none !important;
+  }
+ #navbar:not(.scrolled) .nav-links a {
+  color: rgba(255,255,255,0.75) !important;
+}
+#navbar .nav-links a:hover {
+  color: #2563EB !important;
+}
+#navbar:not(.scrolled) .nav-logo span {
+  color: #ffffff !important;
+}
+#navbar:not(.scrolled) .nav-logo span {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 1.5rem !important;
+}
+#navbar .nav-logo {
+  gap: 1px !important;
+}
+ #navbar.scrolled .nav-links a,
+#navbar.scrolled .lang-btn,
+#navbar.scrolled .btn-outline {
+  color: #111827 !important;
+  border-color: #e5e7eb !important;
+}
+#navbar.scrolled span {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+  /* ═══ NAV ACTIONS ═══ */
+  #navbar .nav-actions {
+    gap: 4px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #navbar .nav-actions .btn-outline {
+    padding-right: 6px !important;
+    padding-left: 6px !important;
+  }
+
+  #navbar .nav-actions .btn-primary {
+    margin-right: 4px !important;
+  }
+
+  /* ═══ LANG BUTTON ═══ */
+  #navbar .lang-btn {
+    background: transparent !important;
+    border: 1.5px solid rgb(255, 255, 255) !important;
+    border-radius: 50px !important;
+    padding: 5px 12px !important;
+    color: #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 0.72rem !important;
+    font-weight: 900 !important;
+    cursor: pointer !important;
+    box-shadow: none !important;
+    font-family: 'Cairo', sans-serif !important;
+  }
+  #navbar.scrolled .lang-btn {
+    border: 1.5px solid rgba(0,0,0,0.25) !important;
+    color: #111827 !important;
+  }
+  #navbar .lang-btn svg {
+    opacity: 0.9 !important;
+    flex-shrink: 0 !important;
+  }
+  
+  #navbar.scrolled .lang-btn {
+    border: 1.5px solid rgba(0,0,0,0.3) !important;
+    color: #111827 !important;
+  }
+  #navbar .lang-btn span {
+    filter: none !important;
+    opacity: 0.6 !important;
+    font-size: 0.7rem !important;
+  }
+  #navbar.scrolled .lang-btn span {
+    filter: none !important;
+    opacity: 0.6 !important;
+  }
+  #navbar.scrolled .lang-btn span {
+    filter: grayscale(1) brightness(0) !important;
+  }
+  .nav-logo-img {
+  height: 40px !important;
+  width: auto !important;
+}
+
+  /* ═══ SIGN IN BUTTON ═══ */
+  #navbar .btn-outline {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+  }
+  #navbar.scrolled .btn-outline {
+    color: #111827 !important;
+  }
+
+  /* ═══ GET STARTED BUTTON ═══ */
+  #navbar .btn-primary {
+    background: #2563EB !important;
+    background-image: none !important;
+    color: #ffffff !important;
+    border-radius: 50px !important;
+    padding: 12px 32px !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+    min-width: 130px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  #navbar .btn-primary:hover {
+    background: #1D4ED8 !important;
+    transform: none !important;
+  }
+  /* Navbar شفاف في الأول */
+  #navbar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border-bottom: none !important;
+    transition: all 0.3s ease !important;
+  }
+
+  /* Navbar أبيض لما تنزلي */
+  #navbar.scrolled {
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08) !important;
+    border-bottom: 1px solid #e5e7eb !important;
+  }
+
+  /* لون الكلام في الـ navbar لما يبقى شفاف */
+  #navbar:not(.scrolled) .nav-links a,
+  #navbar:not(.scrolled) .lang-btn,
+  #navbar:not(.scrolled) .btn-outline {
+    color: #ffffff !important;
+    border-color: rgba(255,255,255,0.4) !important;
+  }
+
+  /* لون الكلام لما يبقى أبيض */
+  #navbar.scrolled .nav-links a,
+  #navbar.scrolled .lang-btn,
+  #navbar.scrolled .btn-outline {
+    color: #111827 !important;
+    border-color: #e5e7eb !important;
+  }
+  html, body {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none !important;
+  }
+  html[lang="en"] {
+    direction: ltr !important;
+    text-align: left !important;
+  }
+
+  html[lang="ar"] {
+    direction: rtl !important;
+    text-align: right !important;
+  }
+
+  html[lang="en"] .nav-links {
+    flex-direction: row !important;
+  }
+
+html[lang="en"] .hero-badge,
+html[lang="ar"] .hero-badge {
+  background: rgba(30, 35, 50, 0.82) !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+}
+
+html[lang="en"] .hero-title,
+html[lang="en"] .hero-sub,
+html[lang="ar"] .hero-title,
+html[lang="ar"] .hero-sub {
+  background: transparent !important;
+  border: none !important;
+}
+  .hero-title {
+  font-size: clamp(3rem, 8vw, 7rem) !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  letter-spacing: -1px !important;
+  text-align: left !important;
+  position: static !important;
+  max-width: 60% !important;
+  margin-top: 80px !important;
+  margin-right: 50px !important;
+  align-self: flex-start !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 700 !important;
+}
+  html[lang="ar"] .hero-title {
+    text-align: right !important;
+  }
+
+  .ht-white {
+    color: #ffffff !important;
+    text-shadow: none !important;
+    }
+  
+
+  .ht-orange {
+    color: #FF6B1A !important;
+    text-shadow: none !important;
+    font-family: 'Poppins', sans-serif !important;
+  font-weight: 700 !important;
+  }
+
+  .ht-gray {
+    color: rgba(255,255,255,0.75) !important;
+    text-shadow: none !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 300 !important;
+
+  }
+</style>
+
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <img class="nav-logo-img" src="assests/logo.png" alt="Voiago"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="nav-logo-fallback" style="display:none">V</div>
+    <span>Voiago</span>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services" data-i18n="nav_services">الخدمات</a></li>
+    <li><a href="#destinations" data-i18n="nav_dest">الوجهات</a></li>
+    <li><a href="#packages" data-i18n="nav_packages">الباقات</a></li>
+    <li><a href="#pricing" data-i18n="nav_pricing">الأسعار</a></li>
+    <li><a href="#about" data-i18n="nav_about">من نحن</a></li>
+    <li><a href="#contact" data-i18n="nav_contact">تواصل معنا</a></li>
+  </ul>
+
+  <div class="nav-actions">
+ <button class="lang-btn" id="langBtn" onclick="toggleLang()">
+  <span id="langText">عربي</span>
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+</button>
+ <button class="btn-outline" onclick="location.href='signup.html'" data-i18n="nav_signin">تسجيل الدخول</button>
+ <button class="btn-primary" onclick="location.href='signup.html'" data-i18n="nav_start">إنشاء حساب</button>
+ <button class="menu-toggle" onclick="toggleMobileMenu()">☰</button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="home">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-orb orb3"></div>
+
+<div class="hero-badge">
+  <span style="display:inline-block;width:8px;height:8px;background:#FF6B35;border-radius:50%;flex-shrink:0"></span> ✈️ <span data-i18n="hero_badge">THE SMARTEST WAY TO TRAVEL</span>
+</div>
+  <h1 class="hero-title">
+    <span class="ht-white" data-i18n="hero_t1">One App.</span><br>
+    <span class="ht-orange" data-i18n="hero_t2" style="white-space:nowrap">Every Journey.</span><br>
+    <span class="ht-gray" data-i18n="hero_t3">Zero Hassle.</span>
+  </h1>
+
+  <p class="hero-sub" data-i18n="hero_sub">
+    Plan, book, pay, and travel smarter. Voiago brings flights, hotels, transport, and emergency support into one intelligent platform.
+  </p>
+
+  <!-- Search Bar -->
+  <div class="hero-search">
+    <div class="search-field">
+      <label data-i18n="search_dest">الوجهة</label>
+      <input type="text" placeholder="إلى أين؟" data-i18n-ph="search_dest_ph" id="heroDestInput" onkeydown="if(event.key==='Enter')handleHeroSearch()">
+    </div>
+    <div class="search-divider"></div>
+    <div class="search-field">
+      <label data-i18n="search_date">تاريخ السفر</label>
+      <input type="text" id="travelDateInput" placeholder="اختر التواريخ" value="15 مايو – 22 مايو" readonly>
+    </div>
+    <div class="search-divider"></div>
+    <div class="search-field">
+      <label data-i18n="search_type">نوع الرحلة</label>
+      <select>
+        <option data-i18n="type_flight">طيران</option>
+        <option data-i18n="type_hotel">فندق</option>
+        <option data-i18n="type_package">باقة</option>
+        <option data-i18n="type_hajj">حج وعمرة</option>
+      </select>
+    </div>
+    <button class="btn-search" onclick="handleHeroSearch()" data-i18n="search_btn">بحث</button>
+  </div>
+
+  <div class="hero-actions">
+    <button class="btn-primary" style="font-size:1rem;padding:14px 32px" onclick="location.href='signup.html'" data-i18n="hero_cta1">🚀 ابدأ رحلتك مجاناً</button>
+    <a href="#services" class="btn-outline" style="font-size:1rem;padding:14px 32px" data-i18n="hero_cta2">🔍 استكشف الخدمات</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item"><div class="stat-number">2M+</div><div class="stat-label" data-i18n="stat_travelers">مسافر سعيد</div></div>
+    <div class="stat-item"><div class="stat-number">150+</div><div class="stat-label" data-i18n="stat_dest">وجهة</div></div>
+    <div class="stat-item"><div class="stat-number">4.9★</div><div class="stat-label" data-i18n="stat_rating">تقييم التطبيق</div></div>
+    <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label" data-i18n="stat_support">دعم مستمر</div></div>
+  </div>
+
+  <div class="floating-cards">
+    <div class="float-card"><span class="float-card-icon">🏨</span><div><div style="font-weight:800">فندق النيل الكبير</div><div style="font-size:.78rem;color:var(--text2)">القاهرة • ⭐⭐⭐⭐⭐</div></div></div>
+    <div class="float-card"><span class="float-card-icon">✈️</span><div><div style="font-weight:800">القاهرة → دبي</div><div style="font-size:.78rem;color:var(--text2)">2,500 ج.م • غداً</div></div></div>
+    <div class="float-card"><span class="float-card-icon">🕌</span><div><div style="font-weight:800">عمرة رمضان</div><div style="font-size:.78rem;color:var(--secondary)">باقات مميزة متاحة</div></div></div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="services">
+  <div class="container">
+    <div class="section-tag">⚙️ <span data-i18n="svc_tag">خدماتنا</span></div>
+    <h2 class="section-title" data-i18n="svc_title">كل ما تحتاجه في مكان واحد</h2>
+    <p class="section-sub" data-i18n="svc_sub">لا تحتاج إلى تطبيقات متعددة. Voiago يقدم لك كل خدمات السفر بشكل متكامل وذكي.</p>
+    <div class="services-grid" id="servicesGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ DESTINATIONS ═══ -->
+<section id="destinations">
+  <div class="container">
+    <div class="section-tag">🗺️ <span data-i18n="dest_tag">الوجهات</span></div>
+    <h2 class="section-title" data-i18n="dest_title">استكشف الوجهات</h2>
+    <p class="section-sub" data-i18n="dest_sub">محلية ودولية، داخل مصر وخارجها — أكثر من 150 وجهة مميزة بانتظارك</p>
+    <div class="dest-tabs">
+      <button class="dest-tab active" onclick="filterDest('all',this)" data-i18n="dest_all">الكل</button>
+      <button class="dest-tab" onclick="filterDest('egypt',this)" data-i18n="dest_egypt">مصر</button>
+      <button class="dest-tab" onclick="filterDest('gulf',this)" data-i18n="dest_gulf">الخليج</button>
+      <button class="dest-tab" onclick="filterDest('europe',this)" data-i18n="dest_europe">أوروبا</button>
+      <button class="dest-tab" onclick="filterDest('asia',this)" data-i18n="dest_asia">آسيا</button>
+      <button class="dest-tab" onclick="filterDest('africa',this)" data-i18n="dest_africa">أفريقيا</button>
+    </div>
+    <div class="dest-grid" id="destGrid"></div>
+    <div style="text-align:center;margin-top:2rem">
+      <button class="btn-primary" onclick="location.href='signup.html'" data-i18n="dest_viewall">عرض كل الوجهات</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PACKAGES ═══ -->
+<section id="packages">
+  <div class="container">
+    <div class="section-tag">🎁 <span data-i18n="pkg_tag">الباقات</span></div>
+    <h2 class="section-title" data-i18n="pkg_title">باقات سفر مميزة</h2>
+    <p class="section-sub" data-i18n="pkg_sub">باقات متكاملة منظمة لأجمل الوجهات بأفضل الأسعار مع خدمة 5 نجوم</p>
+    <div class="packages-grid" id="packagesGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section id="pricing">
+  <div class="container">
+    <div class="center">
+      <div class="section-tag" style="margin:0 auto 16px">💎 <span data-i18n="pricing_tag">الاشتراكات</span></div>
+      <h2 class="section-title" data-i18n="pricing_title">اختر باقتك</h2>
+      <p class="section-sub" style="margin:0 auto 60px" data-i18n="pricing_sub">ابدأ مجاناً أو احصل على المزايا الكاملة مع Premium</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-name" data-i18n="plan_free">مجاني</div>
+        <div class="pricing-price">0</div>
+        <div class="pricing-period" data-i18n="plan_free_sub">مجاناً للأبد</div>
+        <ul class="pricing-features">
+          <li><span class="ok">✓</span> <span>بحث عن رحلات</span></li>
+          <li><span class="ok">✓</span> <span>خريطة مدمجة</span></li>
+          <li><span class="ok">✓</span> <span>حجز واحد شهرياً</span></li>
+          <li><span class="ok">✓</span> <span>دعم أساسي</span></li>
+          <li><span class="no">✗</span> <span style="opacity:.5">عروض حصرية</span></li>
+          <li><span class="no">✗</span> <span style="opacity:.5">محفظة ذكية</span></li>
+        </ul>
+        <button class="btn-outline" style="width:100%" onclick="location.href='signup.html'" data-i18n="plan_start">ابدأ مجاناً</button>
+      </div>
+      <div class="pricing-card popular reveal">
+        <div class="popular-badge" data-i18n="plan_popular">الأكثر شعبية</div>
+        <div class="pricing-name" data-i18n="plan_premium">Premium</div>
+        <div class="pricing-price">149</div>
+        <div class="pricing-period" data-i18n="plan_premium_sub">ج.م / شهر</div>
+        <ul class="pricing-features">
+          <li><span class="ok">✓</span> <span>حجوزات غير محدودة</span></li>
+          <li><span class="ok">✓</span> <span>محفظة ذكية + كاشباك</span></li>
+          <li><span class="ok">✓</span> <span>عروض حصرية</span></li>
+          <li><span class="ok">✓</span> <span>ذكاء اصطناعي كامل</span></li>
+          <li><span class="ok">✓</span> <span>Offline Mode</span></li>
+          <li><span class="ok">✓</span> <span>دعم أولوية 24/7</span></li>
+        </ul>
+        <button class="btn-primary" style="width:100%" onclick="location.href='signup.html'" data-i18n="plan_get">احصل عليه الآن</button>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="pricing-name" data-i18n="plan_biz">Business</div>
+        <div class="pricing-price">499</div>
+        <div class="pricing-period" data-i18n="plan_biz_sub">ج.م / شهر</div>
+        <ul class="pricing-features">
+          <li><span class="ok">✓</span> <span>كل مزايا Premium</span></li>
+          <li><span class="ok">✓</span> <span>لوحة تحكم الشركة</span></li>
+          <li><span class="ok">✓</span> <span>تقارير تفصيلية</span></li>
+          <li><span class="ok">✓</span> <span>API Integration</span></li>
+          <li><span class="ok">✓</span> <span>حسابات فرعية</span></li>
+          <li><span class="ok">✓</span> <span>مدير حساب مخصص</span></li>
+        </ul>
+        <button class="btn-outline" style="width:100%" onclick="showToast('📞 سنتواصل معك قريباً!')" data-i18n="plan_contact">تواصل للأعمال</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SPECIAL OFFERS ═══ -->
+<section id="offers">
+  <div class="container">
+    <div class="section-tag reveal">🔥 <span data-i18n="offers_tag">عروض حصرية</span></div>
+    <h2 class="section-title reveal" data-i18n="offers_title">عروض لا تفوتك</h2>
+    <p class="section-sub reveal" data-i18n="offers_sub">صفقات محدودة منتقاة بعناية لمسافري Voiago. احجز الآن قبل أن تنتهي.</p>
+    <div class="offers-grid">
+      <div class="offer-card featured reveal">
+        <div class="offer-badge-chip">🔥 عرض ساخن</div>
+        <h3 data-i18n="offer1_t">وفّر 20% على الطيران</h3>
+        <p data-i18n="offer1_d">احجز رحلات الصيف الآن واحصل على خصم حصري على جميع الرحلات الدولية من القاهرة.</p>
+        <div class="offer-meta">
+          <div class="offer-discount">20% خصم</div>
+          <button class="btn-outline" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.4);padding:.6rem 1.2rem;font-size:.85rem" onclick="location.href='signup.html'" data-i18n="offer_claim">احصل عليه</button>
+        </div>
+      </div>
+      <div class="offer-card reveal">
+        <div class="offer-badge-chip">🏨 فنادق</div>
+        <h3 data-i18n="offer2_t">أقِم أكثر، ادفع أقل</h3>
+        <p data-i18n="offer2_d">احجز 3 ليالٍ أو أكثر في أي فندق شريك واستمتع بخصم 15%. سارٍ في دبي وإسطنبول وباريس.</p>
+        <div class="offer-meta">
+          <div class="offer-discount" style="color:var(--secondary)">15% خصم</div>
+          <button class="btn-primary" style="padding:.6rem 1.2rem;font-size:.85rem" onclick="location.href='signup.html'" data-i18n="offer_book">احجز الآن</button>
+        </div>
+      </div>
+      <div class="offer-card reveal">
+        <div class="offer-badge-chip">✈️ باقات</div>
+        <h3 data-i18n="offer3_t">باقة دبي الشاملة</h3>
+        <p data-i18n="offer3_d">طيران + فندق + جولات في باقة واحدة لا تُقاوَم. 7 ليالٍ من القاهرة ابتداءً من 8,900 ج.م.</p>
+        <div class="offer-meta">
+          <div class="offer-discount" style="color:var(--secondary)">8,900 ج.م</div>
+          <button class="btn-primary" style="padding:.6rem 1.2rem;font-size:.85rem" onclick="location.href='signup.html'" data-i18n="offer_book">احجز الآن</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HAJJ & UMRAH ═══ -->
+<section id="hajj">
+  <div class="container">
+    <div class="section-tag">🕌 <span data-i18n="hajj_tag">الحج والعمرة</span></div>
+    <h2 class="section-title" data-i18n="hajj_title">رحلات الحج والعمرة</h2>
+    <p class="section-sub" data-i18n="hajj_sub">نقدم باقات مميزة للحج والعمرة بأفضل الأسعار مع خدمة متكاملة وإشراف طوال الرحلة</p>
+    <div class="hajj-grid">
+      <div class="hajj-card reveal">
+        <div class="hajj-icon">🕌</div>
+        <h3 class="hajj-title" data-i18n="hajj1_t">عمرة رمضان</h3>
+        <p class="hajj-desc" data-i18n="hajj1_d">باقات عمرة خاصة خلال شهر رمضان المبارك تشمل الطيران والإقامة والنقل والمرشد</p>
+        <div class="hajj-price" data-i18n="hajj1_p">من 8,500 ج.م</div>
+        <button class="btn-primary" style="margin-top:16px;font-size:.9rem" onclick="showToast('✅ سيتم التواصل معك قريباً!')" data-i18n="hajj_book">احجز الآن</button>
+      </div>
+      <div class="hajj-card reveal">
+        <div class="hajj-icon">🌙</div>
+        <h3 class="hajj-title" data-i18n="hajj2_t">عمرة طوال العام</h3>
+        <p class="hajj-desc" data-i18n="hajj2_d">رحلات عمرة شهرية على مدار العام، تناسب جميع الميزانيات مع إمكانية التخصيص الكامل</p>
+        <div class="hajj-price" data-i18n="hajj2_p">من 6,200 ج.م</div>
+        <button class="btn-primary" style="margin-top:16px;font-size:.9rem" onclick="showToast('✅ سيتم التواصل معك قريباً!')" data-i18n="hajj_book">احجز الآن</button>
+      </div>
+      <div class="hajj-card reveal">
+        <div class="hajj-icon">⭐</div>
+        <h3 class="hajj-title" data-i18n="hajj3_t">موسم الحج 2026</h3>
+        <p class="hajj-desc" data-i18n="hajj3_d">سجل مبكراً لباقات الحج المنظمة مع أفضل الفنادق القريبة من المسجد الحرام والخدمات الكاملة</p>
+        <div class="hajj-price" data-i18n="hajj3_p">من 35,000 ج.م</div>
+        <button class="btn-primary" style="margin-top:16px;font-size:.9rem" onclick="showToast('✅ تم تسجيل طلبك!')" data-i18n="hajj_register">سجّل الآن</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ APP DOWNLOAD ═══ -->
+<section id="download">
+  <div class="container">
+    <div class="download-grid">
+      <div class="reveal">
+        <div class="section-tag">📱 <span data-i18n="dl_tag">التطبيق</span></div>
+        <h2 class="section-title" data-i18n="dl_title">سافر أذكى من هاتفك</h2>
+        <p style="color:var(--text2);margin-bottom:1rem;line-height:1.8" data-i18n="dl_sub">احصل على تجربة Voiago الكاملة على جهازك المحمول.</p>
+        <ul class="download-features">
+          <li data-i18n="dl_f1">احجز في أقل من 60 ثانية</li>
+          <li data-i18n="dl_f2">أمان بمستوى البنوك</li>
+          <li data-i18n="dl_f3">يعمل بدون إنترنت</li>
+          <li data-i18n="dl_f4">إشعارات فورية</li>
+          <li data-i18n="dl_f5">متعدد العملات — EGP, USD, EUR, SAR, AED +50</li>
+          <li data-i18n="dl_f6">اقتراحات رحلات بالذكاء الاصطناعي</li>
+        </ul>
+        <div class="download-stats">
+          <div class="dl-stat"><strong>4.9/5</strong><span data-i18n="dl_rating">تقييم</span></div>
+          <div class="dl-stat"><strong>2M+</strong><span data-i18n="dl_downloads">تحميل</span></div>
+          <div class="dl-stat"><strong>50MB</strong><span data-i18n="dl_size">حجم</span></div>
+        </div>
+      </div>
+      <div class="reveal" style="display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap">
+        <!-- App Mockup -->
+        <div class="app-mockup-container">
+          <div class="app-notch"></div>
+          <div class="app-header">
+            <div class="app-logo">
+              <img class="app-logo-img" src="assests/logo.jpeg" alt="Voiago" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <div class="app-logo-fb" style="display:none">V</div>
+              <span>Voiago</span>
+            </div>
+            <div class="app-bell">🔔</div>
+          </div>
+          <div class="app-search">🔍 إلى أين القادم؟</div>
+          <div class="app-card">
+            <img src="https://images.unsplash.com/photo-1516094113886-fe4eaabaf43c?w=120&q=80&fit=crop" alt="Dubai">
+            <div class="app-card-info">
+              <h4>دبي، الإمارات</h4>
+              <p>15 مايو – 22 مايو</p>
+              <strong>8,900 ج.م</strong>
+            </div>
+          </div>
+          <div class="app-services">
+            <div class="app-icon">✈️</div>
+            <div class="app-icon">🏨</div>
+            <div class="app-icon">🚗</div>
+            <div class="app-icon">🗺️</div>
+          </div>
+          <div class="app-budget">
+            <div class="budget-hdr"><span>الميزانية</span><strong style="color:#FF8A2B">12,000 ج.م</strong></div>
+            <div class="budget-bar"><div class="budget-fill"></div></div>
+            <p class="budget-note">تم إنفاق 8,000 ج.م</p>
+          </div>
+          <div class="app-popup">
+            <div class="popup-icon">✓</div>
+            <div class="popup-text"><strong>تم تأكيد الحجز!</strong><span>رحلة دبي</span></div>
+          </div>
+        </div>
+
+        <!-- QR Box -->
+        <div class="qr-download-box">
+          <div class="qr-title" data-i18n="qr_title">امسح للتحميل</div>
+          <p class="qr-sub" data-i18n="qr_sub">وجّه كاميرا هاتفك لتحميل Voiago فوراً</p>
+          <div class="qr-img-wrap">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://voiago.com/app" alt="QR">
+          </div>
+          <a href="https://drive.google.com/file/d/1Pe7Z440BnRQ3ElredSLn-MWKsdVZEqBv/view?usp=sharing" target="_blank" class="btn-primary" style="display:inline-block;padding:.65rem 1.4rem;font-size:.88rem" data-i18n="qr_download">تحميل التطبيق</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REVIEWS ═══ -->
+<section id="reviews">
+  <div class="container center">
+    <div class="section-tag" style="margin:0 auto 16px">💬 <span data-i18n="reviews_tag">تجارب المسافرين</span></div>
+    <h2 class="section-title" data-i18n="reviews_title">محبوب من ملايين المسافرين</h2>
+    <p class="section-sub" style="margin:0 auto 60px" data-i18n="reviews_sub">تجارب حقيقية من مسافرين حقيقيين جعلوا رحلاتهم لا تُنسى مع Voiago.</p>
+    <div class="reviews-grid" id="reviewsGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ PARTNERS ═══ -->
+<section id="partners">
+  <div class="container">
+    <div class="center">
+      <div class="section-tag" style="margin:0 auto 16px">🤝 <span data-i18n="partners_tag">شركاؤنا</span></div>
+      <h2 class="section-title" data-i18n="partners_title">موثوق من كبرى العلامات العالمية</h2>
+      <p class="section-sub" style="margin:0 auto 60px" data-i18n="partners_sub">نتعاون مع أفضل شركات الطيران والفنادق وخدمات السفر لنضمن لك أفضل العروض.</p>
+    </div>
+    <div class="partners-strip" style="margin-bottom:2rem">
+      <div class="partner-badge">✈️ مصر للطيران</div>
+      <div class="partner-badge">🏨 ماريوت</div>
+      <div class="partner-badge">✈️ الإمارات</div>
+      <div class="partner-badge">🏨 هيلتون</div>
+      <div class="partner-badge">✈️ تركيش</div>
+      <div class="partner-badge">🚗 كريم</div>
+      <div class="partner-badge">🏨 فور سيزونز</div>
+      <div class="partner-badge">✈️ قطر</div>
+    </div>
+    <div style="text-align:center;display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <button class="btn-primary" onclick="location.href='signup.html'" data-i18n="partner_join">انضم كشريك</button>
+      <button class="btn-outline" onclick="showToast('📩 سيتم إرسال تفاصيل الشراكة!')" data-i18n="partner_learn">اعرف أكثر</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section id="faq">
+  <div class="container">
+    <div class="center">
+      <div class="section-tag" style="margin:0 auto 16px">❓ <span data-i18n="faq_tag">الأسئلة الشائعة</span></div>
+      <h2 class="section-title" data-i18n="faq_title">أسئلة يسألها الجميع</h2>
+    </div>
+    <div style="max-width:800px;margin:40px auto 0" id="faqContainer"></div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT US ═══ -->
+<section id="about">
+  <div class="container">
+    <div class="center">
+      <div class="section-tag">ℹ️ <span data-i18n="about_tag">من نحن</span></div>
+      <h2 class="section-title" data-i18n="about_title">تعرف على Voiago</h2>
+      <p class="section-sub" data-i18n="about_sub">منصة السفر الذكية التي تجمع بين أحدث التقنيات وأفضل الخدمات لتجعل رحلتك أسهل.</p>
+    </div>
+    
+    <!-- Content from Why Voiago -->
+    <div class="why-grid" style="margin-bottom: 60px;">
+      <div class="reveal">
+        <h3 style="font-size: 1.8rem; margin-bottom: 1rem; font-weight: 800;" data-i18n="why_title">التطبيق الوحيد<br>الذي يفعل كل شيء.</h3>
+        <p style="color:var(--text2);font-size:.95rem;margin-bottom:1.5rem;line-height:1.8" data-i18n="why_sub">بينما التطبيقات الأخرى تفعل شيئاً واحداً، Voiago يفعل كل شيء.</p>
+        <div class="why-features" id="whyFeatures"></div>
+        <blockquote class="why-quote" data-i18n="why_quote">
+          "Voiago ليس مجرد تطبيق — إنه منظومة سفر متكاملة تضع كل خدمة تحتاجها في راحة يدك."
+        </blockquote>
+      </div>
+      <div class="reveal">
+        <div class="why-stats" id="whyStats"></div>
+      </div>
+    </div>
+
+    <!-- Content from Features -->
+    <div class="center">
+      <h3 style="font-size: 1.8rem; margin-bottom: 1rem; font-weight: 800;" data-i18n="feat_title">تقنيات لا مثيل لها</h3>
+      <p style="color:var(--text2);font-size:.95rem;margin-bottom:3rem;" data-i18n="feat_sub">Voiago هو التطبيق الوحيد الذي يجمع كل هذه الميزات الذكية في منصة واحدة</p>
+    </div>
+    <div class="features-grid" id="featuresGrid"></div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="container">
+    <div class="section-tag">📬 <span data-i18n="contact_tag">تواصل معنا</span></div>
+    <h2 class="section-title" data-i18n="contact_title">تواصل معنا</h2>
+    <div class="contact-grid">
+      <div>
+        <p style="color:var(--text2);line-height:1.9;margin-bottom:32px;font-size:.95rem" data-i18n="contact_sub">فريقنا دائماً مستعد لمساعدتك. سواء كان لديك سؤال، اقتراح، أو تعاون محتمل.</p>
+        <div style="display:flex;flex-direction:column;gap:24px;margin-bottom:32px">
+          <div class="contact-info-item">
+            <div class="contact-info-icon" style="background:rgba(91,61,222,.2)">📧</div>
+            <div><div style="font-weight:700">info@voiago.app</div><div style="color:var(--text2);font-size:.85rem">البريد الإلكتروني</div></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon" style="background:rgba(244,162,25,.2)">📱</div>
+            <div><div style="font-weight:700">+20 100 000 0000</div><div style="color:var(--text2);font-size:.85rem">الهاتف والواتساب</div></div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon" style="background:rgba(0,229,160,.2)">📍</div>
+            <div><div style="font-weight:700">القاهرة، مصر</div><div style="color:var(--text2);font-size:.85rem">المقر الرئيسي</div></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-weight:700;margin-bottom:14px">تابعنا على السوشيال ميديا</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="social-btn" onclick="showToast('🔜 قريباً على فيسبوك!')">f</button>
+            <button class="social-btn" onclick="showToast('🔜 قريباً على إنستغرام!')">📸</button>
+            <button class="social-btn" onclick="showToast('🔜 قريباً على تيك توك!')">🎵</button>
+            <button class="social-btn" onclick="showToast('🔜 قريباً على يوتيوب!')">▶</button>
+            <button class="social-btn" onclick="showToast('🔜 قريباً على تويتر!')">𝕏</button>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-box">
+        <h3 style="margin-bottom:20px;font-weight:800">أرسل رسالتك</h3>
+        <div class="form-group"><label>الاسم</label><input type="text" id="cName" placeholder="اسمك"></div>
+        <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="cEmail" placeholder="your@email.com"></div>
+        <div class="form-group"><label>الموضوع</label>
+          <select id="cSubject">
+            <option>استفسار عام</option><option>مشكلة في الحجز</option>
+            <option>اقتراح تحسين</option><option>شراكة أعمال</option><option>شكوى</option>
+          </select>
+        </div>
+        <div class="form-group"><label>رسالتك</label><textarea id="cMsg" placeholder="اكتب رسالتك هنا..."></textarea></div>
+        <button class="btn-primary" style="width:100%" onclick="sendContact()">إرسال الرسالة ✉️</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div style="width:46px;height:46px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Poppins;font-size:1.1rem;font-weight:900;color:#fff">V</div>
+          <span style="font-family:Poppins;font-weight:900;font-size:1.5rem;background:linear-gradient(135deg,#fff,#F4A219);-webkit-background-clip:text;-webkit-text-fill-color:transparent">VOIAGO</span>
+        </div>
+        <p>مساعد سفرك الذكي الشخصي. نجمع كل خدمات السفر في منصة واحدة ذكية وأنيقة.</p>
+        <div class="social-links">
+          <button class="social-btn" onclick="showToast('🔜 قريباً!')">f</button>
+          <button class="social-btn" onclick="showToast('🔜 قريباً!')">📸</button>
+          <button class="social-btn" onclick="showToast('🔜 قريباً!')">▶</button>
+          <button class="social-btn" onclick="showToast('🔜 قريباً!')">𝕏</button>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>الخدمات</h4>
+        <ul>
+          <li><a href="#services">حجز الطيران</a></li>
+          <li><a href="#services">حجز الفنادق</a></li>
+          <li><a href="#services">وسائل النقل</a></li>
+          <li><a href="#services">الأنشطة والجولات</a></li>
+          <li><a href="#hajj">الحج والعمرة</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>استكشف</h4>
+        <ul>
+          <li><a href="#destinations">الوجهات</a></li>
+          <li><a href="#packages">الباقات</a></li>
+          <li><a href="#pricing">الأسعار</a></li>
+          <li><a href="#partners">الشركاء</a></li>
+          <li><a href="#offers">العروض</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>الدعم</h4>
+        <ul>
+          <li><a href="#faq">الأسئلة الشائعة</a></li>
+          <li><a href="#contact">تواصل معنا</a></li>
+          <li><a href="#" onclick="showToast('📋 سياسة الخصوصية')">سياسة الخصوصية</a></li>
+          <li><a href="#" onclick="showToast('📄 الشروط والأحكام')">الشروط والأحكام</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Voiago. جميع الحقوق محفوظة.</p>
+      <p>صُنع بـ ❤️ في مصر</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══ DASHBOARD ═══ -->
+<div class="dashboard-overlay" id="dashOverlay">
+  <div class="dash-header">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:38px;height:38px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Poppins;font-weight:900;color:#fff">V</div>
+      <span style="font-family:Poppins;font-weight:900;font-size:1.1rem">VOIAGO</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <span id="dashName" style="font-weight:600;color:var(--text-light)"></span>
+      <span id="dashBadge" class="badge"></span>
+      <button class="btn-outline" style="padding:.45rem 1rem;font-size:.85rem" onclick="logout()">خروج</button>
+    </div>
+  </div>
+  <div class="dash-sidebar" id="dashSidebar"></div>
+  <div class="dash-main" id="dashMain"></div>
+</div>
+
+<!-- ═══ CHAT FAB ═══ -->
+<button class="chat-fab" onclick="toggleChat()">💬</button>
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="ch-avatar">🤖</div>
+    <div class="ch-info"><h4>Voiago AI</h4><p>مساعدك الذكي</p></div>
+    <div class="online-dot"></div>
+  </div>
+  <div class="chat-messages" id="chatMsgs">
+    <div class="chat-msg bot"><div class="chat-bubble">مرحباً! أنا مساعد Voiago الذكي 🌟 كيف أقدر أساعدك اليوم؟</div></div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chatInput" placeholder="اكتب رسالتك..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">➤</button>
+  </div>
+</div>
+<script src="Js/script.js"></script>
+<script>
+  window.addEventListener('scroll', function() {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+</script>
+</body>
+</html>
