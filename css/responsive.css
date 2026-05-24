@@ -1,0 +1,129 @@
+/* ═══════════════════════════════════════════════
+   VOIAGO — RESPONSIVE STYLES
+═══════════════════════════════════════════════ */
+
+/* ─── MEDIUM SCREENS (900px and below) ─── */
+@media (max-width: 900px) {
+  section {
+    padding: 80px 20px;
+  }
+
+  .container {
+    padding: 0 15px;
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  }
+
+  .services-grid,
+  .features-grid,
+  .packages-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+  }
+
+  .why-grid,
+  .download-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ─── SMALL SCREENS (600px and below) ─── */
+@media (max-width: 600px) {
+  section {
+    padding: 60px 16px;
+  }
+
+  .section-title {
+    font-size: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .section-sub {
+    font-size: 0.95rem;
+  }
+
+  .services-grid,
+  .features-grid,
+  .packages-grid,
+  .reviews-grid,
+  .dest-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    width: 100%;
+    padding: 12px 16px;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-mockup-container {
+    max-width: 100%;
+    width: 240px;
+  }
+
+  .qr-download-box {
+    width: 100%;
+  }
+
+  .why-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ─── EXTRA SMALL SCREENS (400px and below) ─── */
+@media (max-width: 400px) {
+  section {
+    padding: 50px 12px;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    font-size: 0.85rem;
+    padding: 10px 14px;
+  }
+
+  .toast {
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
+
+  .modal {
+    width: 95%;
+    padding: 20px;
+  }
+}

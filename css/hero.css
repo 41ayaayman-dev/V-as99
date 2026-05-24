@@ -1,0 +1,228 @@
+/* ═══════════════════════════════════════════════
+   VOIAGO — HERO SECTION
+═══════════════════════════════════════════════ */
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 120px 60px 60px;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 15, 30, 0.45) 0%,
+    rgba(8, 15, 30, 0.55) 40%,
+    rgba(8, 15, 30, 0.80) 100%
+  );
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1728817935547-04f9ef9007ba') no-repeat center center / cover;
+  z-index: 0;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 15, 30, 0.45) 0%,
+    rgba(8, 15, 30, 0.55) 40%,
+    rgba(8, 15, 30, 0.80) 100%
+  );
+  z-index: 1;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── HERO BADGE ─── */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(30, 35, 50, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  padding: 6px 14px;
+  backdrop-filter: blur(8px);
+  font-size: 0.75rem;
+  color: #ffffff;
+  font-weight: 700;
+  margin-bottom: 44px;
+  animation: fadeUp 0.8s ease both;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* ─── HERO TITLE ─── */
+.hero-title {
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -1px;
+  text-align: left;
+  position: static;
+  max-width: 60%;
+  margin-bottom: 28px;
+  font-family: 'Poppins', sans-serif;
+  animation: fadeUp 0.8s 0.1s ease both;
+}
+
+.ht-white {
+  color: #ffffff;
+  text-shadow: none;
+}
+
+.ht-orange {
+  color: #FF6B1A;
+  text-shadow: none;
+}
+
+.ht-gray {
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: none;
+}
+
+/* ─── HERO SUBTITLE ─── */
+.hero-sub {
+  background: transparent;
+  border: none;
+  backdrop-filter: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+  max-width: 600px;
+  text-align: left;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+
+/* ─── SEARCH BAR ─── */
+.hero-search {
+  background: rgba(17, 25, 46, 0.93);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(105, 130, 180, 0.22);
+  border-radius: 26px;
+  padding: 1.75rem 2rem;
+  display: flex;
+  gap: 1.55rem;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  max-width: 1050px;
+  width: 100%;
+  margin: 40px auto;
+  animation: fadeUp 0.8s 0.25s ease both;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+}
+
+.search-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 170px;
+  flex: 1;
+  text-align: left;
+}
+
+.search-field label {
+  font-size: 0.86rem;
+  color: #aeb7ca;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.search-field input,
+.search-field select {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.18rem;
+  outline: none;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 700;
+}
+
+.search-field input::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.search-field select option {
+  background: var(--dark2);
+}
+
+.search-divider {
+  width: 1px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.btn-search {
+  background: #6B4EE6;
+  color: #fff;
+  border: none;
+  padding: 1.1rem 2.6rem;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  font-family: 'Cairo', sans-serif;
+  box-shadow: 0 12px 28px rgba(107, 78, 230, 0.36);
+}
+
+.btn-search:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(107, 78, 230, 0.48);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .hero {
+    padding: 105px 20px 36px;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 13vw, 4rem);
+    max-width: 100%;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    max-width: 100%;
+  }
+
+  .hero-search {
+    max-width: 100%;
+    flex-wrap: wrap;
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+
+  .search-field {
+    min-width: 100%;
+  }
+
+  .search-divider {
+    display: none;
+  }
+
+  .btn-search {
+    width: 100%;
+  }
+}
